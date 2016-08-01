@@ -1,0 +1,74 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity implements OnClickListener {
+                  AutoCompleteTextView a1;
+	ArrayAdapter obj;
+	String newcolor[]={"red","blue","black","white","green","brown"};
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        a1=(AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+        obj=new ArrayAdapter(this.android.R.layout.select_dialog_item.newColor);
+        a1=setAdapter(obj);
+        a1=setThreshold(1);
+        
+          AutoCompleteTextView setAdapter(ArrayAdapter obj2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	private AutoCompleteTextView setThreshold(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void color(View v)
+    {
+    	String svalue=a1.getText().toString();
+    	if(svalue.equals("green"))
+    	{
+    		layout.setBackgroundColor(Color.GREEN);
+    	}
+    	if(svalue.equals("black"))
+    	{
+    		layout.setBackgroundColor(Color.BLACK);
+    	}
+    	if(svalue.equals("blue"))
+    	{
+    		layout.setBackgroundColor(Color.BLUE);
+    	}
+    	if(svalue.equals("red"))
+    	{
+    		layout.setBackgroundColor(Color.RED);
+    	}
+}
+}
+    }
+
+MAINACTIVITY.XML
+
+ <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:text="chose color" >
+
+<Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoCompleteTextView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text=" color it" 
+        android:onClick="color" />
+
+o/p:::
+there will be a  textfield where user will type a color and the options will appear automatically frm which 
+user can select any color and when he'll click on "color it" button then the screen will tun into that color.
+

@@ -1,0 +1,55 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+     SQLiteDatabase obj;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        
+    }
+
+  public void createD(View v)
+  {
+	  obj=openOrCreateDatabase("student", 1, null);
+  }
+  public void createT(View v)
+  {
+	  obj.execSQL("CREATE TABLE info( Name varchar(20),ID int);");
+	  obj.execSQL("INSERT INTO friend VALUES(11,'Smriti');");
+	  
+  }
+}
+
+MAINACTIVITY.XML
+
+ <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="74dp"
+            android:onClick="createD"
+            android:text="Created Database" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="57dp"
+            android:onClick="createT"
+            android:text="Create Tables" />
+
+    </RelativeLayout>
+
+O/P::::::there'll be 2 buttons,wen user will click on"create database" button then a db called 
+"student" will be created and wen user will click on "create table" button then a table will be created n the
+required values will  be created.

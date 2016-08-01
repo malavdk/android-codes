@@ -1,0 +1,52 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+    EditText e1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        e1=(EditText) findViewById(R.id.editText1);
+        }
+
+    public void call (View v)
+    {
+    	String phone="tel:"+e1.getText().toString();
+    	
+    	Intent i=new Intent(Intent.ACTION_CALL);
+    	i.setData(Uri.parse(phone));
+    	startActivity(i);
+    }
+}
+
+MAINACTIVITY.XML
+
+ <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+ 
+<EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="86dp"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="54dp"
+            android:text="Start call"
+            android:onClick="call" />
+</RelativeLayout>
+
+O/P:::there'll be a textfield where user will enter a no: and wen he'll
+click on "start call" button then a call will be made to that no:.

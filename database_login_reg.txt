@@ -1,0 +1,178 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+	
+	EditText e1;
+	EditText e2;
+	
+
+	SQLiteDatabase obj;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        obj=this.openOrCreateDatabase("Registration", 1, null);                 //create a registration database where registered values can be stored
+        e1=(EditText) findViewById(R.id.editText1);
+        e2=(EditText) findViewById(R.id.editText2);
+        
+        }
+
+    public void navigate(View v)
+    {
+    	Intent i=new Intent(this,Registration.class);   
+    	startActivity(i);               //go to registration page or screeen called registration
+    	
+    }
+    public void login(View v)
+    {
+    	Cursor c;
+    	c=obj.rawQuery("select * from ulogin where uname='"+e1.getText().toString()+"'AND pass='"+e2.getText().toString()+"'", null);     //if the username n pswd is already registered into ulogin table
+    	if(c.moveToNext())
+    	{
+    		Toast.makeText(this, "login is successful",1).show();
+    	}
+    	
+    	else
+    	{
+    		Toast.makeText(this, "Invalid username or password",1).show();
+    	}
+    }
+    
+
+
+REGISTRATION.JAVA
+
+public class Registration extends Activity {
+    
+	SQLiteDatabase obj;
+	EditText e1;
+	EditText e2;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_registration);
+		 e1=(EditText) findViewById(R.id.editText1);
+		 e2=(EditText) findViewById(R.id.editText2);
+		
+		obj=this.openOrCreateDatabase("Registration", 1, null);
+		try
+		{
+		obj.execSQL("create table ulogin (uname varchar,pass varchar)");
+		}
+		catch(Exception ex)
+		{
+			
+		}
+		
+		
+
+	}
+	
+	public void register(View v)
+	{
+		//code to insert data in table
+		//obj.execSQL("insert into ulogin values ('"+e1.getText().toString()+"','"+e2.getText().toString()+"')");           //enter username n pswd
+                                   ContentValues value=new ContentValues ();                //another way to put values into table
+		String name=e1.getText().toString();                                                       
+		value.put("uname",name);
+		value.put("pass", e2.getText().toString());
+		obj.insert("ulogin",null,value);
+		Toast.makeText(this, "registration done!!!",1).show();
+		
+		Intent i=new Intent(this,MainActivity.class);
+		startActivity(i);                                                       //goto login screen again
+		
+	}
+
+
+MAINACTIVITY.XML
+
+<EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10" 
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="52dp"
+        android:text="login"
+        android:onClick="login" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignRight="@+id/editText2"
+        android:text="registration" 
+        android:onClick="navigate"/>
+
+REGISTRATION.XML
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="109dp"
+        android:ems="10"
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:ems="10" 
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
+        android:text="register"
+        android:onClick="register"  />
+
+</RelativeLayout>
+
+O/P:::::intially the screen will register the new usernames n pswds n store dem in "ulogin" table  ;there'll be 2 textfeilds where user will enter
+username npswd n then wen he;ll click on "registraion" button then his data will be saved in the ulogin table and "registration done" and he'll be redirected to the mainactivity screen
+where again username n pswd will be enterd and then if it is registered then wen he'll click on "login" button then it will be written on d next screen "login successful".

@@ -1,0 +1,27 @@
+public class HelloMainActivity extends Activity implements TextWatcher{
+	
+    EditText e;
+	ListView lw;
+	ArrayAdapter obj,obj2;
+	Spinner sp;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hello_main);
+        lw=(ListView) findViewById(R.id.listView1);
+        e=(EditText)findViewById(R.id.editText1);
+        sp=(Spinner) findViewById(R.id.spinner1);
+        String names[]={"amit","sumit","vinit","atul"};
+        
+        
+        obj=new ArrayAdapter(this, android.R.layout.simple_list_item_1,names);
+        obj2=new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,names);
+        sp.setAdapter(obj2);
+        
+        lw.setAdapter(obj);
+        e.addTextChangedListener(this);
+        
+        
+    }
+     

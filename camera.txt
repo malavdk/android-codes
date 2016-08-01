@@ -1,0 +1,25 @@
+public class MainActivity extends Activity {
+ImageView img;
+@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        img=(ImageView) findViewById(R.id.imageView1);
+    }
+public void capture(View v)
+    {
+    	Intent i=new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+    	//startActivity(i); for capturing
+    	startActivityForResult(i,1); //to capture n retrieve d image (data) to return result frm intent
+    	
+    }
+    
+    public void onActivityResult(int resultcode, int requestcode, Intent data)
+    {
+    	Bitmap bp;//can be a text file,img or video..to use only img data we use this and create object of bitmap class
+    	bp=(Bitmap)data.getExtras().get("data"); //retrieves data from data
+    	// typecast into bitmap object
+    	img.setImageBitmap(bp);
+    }
+    
+}

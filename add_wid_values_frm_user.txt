@@ -1,0 +1,64 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+EditText e1;
+	EditText e2;
+	EditText e3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)    //bundles state and bridge
+ {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+ e1=(EditText) findViewById(R.id.editText1);
+        e2=(EditText) findViewById(R.id.editText2);
+        e3=(EditText) findViewById(R.id.editText3);
+}
+ public void sum(View v)
+    {
+    	int a,b,c;
+    	a=Integer.parseInt(e1.getText().toString());
+    	b=Integer.parseInt(e2.getText().toString());
+    	c=a+b;
+    	e3=setText("sum is"+c);
+Toast.makeText(this, "sum is"+c, 1).show();
+    }
+}
+
+MAINACTIVITY.XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="add"
+    android:onClick="sum" />
+<EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:ems="10" />
+<EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:ems="10" />
+<EditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:ems="10" />
+
+o/p:::
+there will be 2  textfield where user will type 2 nos:and 
+ when he'll click on "add" button then the result will be displayed on a textfield.

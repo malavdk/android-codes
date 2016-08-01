@@ -1,0 +1,136 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+  EditText e1;
+  EditText e2;
+  
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        e1=(EditText) findViewById(R.id.editText1);
+        e2=(EditText) findViewById(R.id.editText2);
+
+        
+    }
+ public void login(View v)
+ {
+	 String username=e1.getText().toString();     //get username frm user
+	 String password=e2.getText().toString();    //get pswd frm user
+	 if(username.isEmpty()||password.isEmpty())
+	 {
+		/*generate runtime validations*/
+		 e1.setError("invalid username");
+		 e2.setError("invalid password");
+	 }
+	 else if(username.equals("admin")&&password.equals("admin"))
+	 {
+		 Intent i	=new Intent(this,Homescreen.class);
+		 i.putExtra("key1", username);      //put d value of username into key1
+		 i.putExtra("key2", password);      //put d value of password into key2
+		 startActivity(i);                     //app will be redirected to another screen called homescreen
+		 }
+ }
+
+}
+
+HOMESCREEN.JAVA
+
+public class Homescreen extends Activity {
+	 TextView txt;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_homescreen);
+		txt=(TextView) findViewById(R.id.textView1);
+		Toast.makeText(this, "Welcome!",1).show();
+		Intent obj=getIntent();
+		String user=obj.getStringExtra("key1");
+		String pwd=obj.getStringExtra("key2");
+		
+		txt.setText("Hi "+user+"!!!  your password is "+pwd);
+
+		
+	}
+	public void back(View v)
+	{
+		Intent i=new Intent(this,MainActivity.class);
+		startActivity(i);          //app will be redirected to the screen called mainactivity again
+	}
+
+MAINACTIVITY.XML
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:onClick="login"
+        android:text="login" />
+
+</RelativeLayout>
+
+HOMECREEN.XML
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TextView"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="34dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="back"
+        android:onClick="back" />
+
+</RelativeLayout>
+
+O/P:::::there'll be a mainscreen called mainactivity where there'll be 2 textfields called username n password where username will enter them n wen he'll click login then
+he'll be directed 2 another screen called homescreen where it'll be written "welcome" "hi user ur pswd is password" and wen he'll click on back button then 
+he'll be directed 2 previous screen called mainactivity.

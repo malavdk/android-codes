@@ -1,0 +1,49 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+    BackgroundProcessing obj;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+
+       
+    }
+
+    
+    public void task1(View v)
+    {
+    	Toast.makeText(this, "task is started", 1).show();
+    	obj=new BackgroundProcessing();
+    	obj.execute();
+    }
+    
+    public void task2(View v)
+    {
+    	Toast.makeText(this, "task is started", 1).show();
+    }
+
+BACKGROUNDPROCESSING.JAVA
+
+public class BackgroundProcessing extends AsyncTask<Void, Void, Void>{
+
+	@Override
+	protected Void doInBackground(Void... arg0) {
+		// TODO Auto-generated method stub
+		for(int i=1;i<=10;i++)
+		{
+			System.out.println("value"+i);
+			
+				try {
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		}
+		return null;
+	}
+
+}

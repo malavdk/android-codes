@@ -1,0 +1,30 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)    //bundles state and bridge
+ {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+}
+public void add(View v)
+    {
+    	int a,b,c;
+    	a=40;
+    	b=80;
+    	c=a+b;
+    	Toast.makeText(this, "answer"+c, 1).show();
+    }
+}
+
+MAINACTIVITY.XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="add result"
+    android:onClick="add" />
+

@@ -1,0 +1,41 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+    Backservice obj;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        
+    }
+    
+    public void task1(View v)
+    {
+    	Intent i=new Intent(this,Backservice.class);//client call to services
+    	startService(i);
+    }
+
+BACKSERVICE.JAVA
+
+public class Backservice extends Service {
+
+	@Override
+	public IBinder onBind(Intent arg0) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+	public int onStartCommand(Intent intent,int flags,int startId)
+	{
+		
+		for(int i=1;i<=10;i++)
+		{
+			Toast.makeText(this, "count"+i,1).show();
+			
+		}
+		return startId;
+		
+	}
+}

@@ -1,0 +1,160 @@
+MAINACTIVITY.JAVA
+
+public class MainActivity extends Activity {
+     SQLiteDatabase obj;
+     EditText e1;
+     EditText e2;
+     EditText e3;
+     Button b1;
+     Button b2;
+     
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_d1_main);
+        e1=(EditText) findViewById(R.id.editText1);
+        e2=(EditText) findViewById(R.id.editText2);
+        e3=(EditText) findViewById(R.id.editText3);
+       
+        
+
+       
+    }
+
+   public void CreateD(View v)
+   {
+	   obj=openOrCreateDatabase("stud",1 , null);
+	   
+   }
+   public void CreateT(View v)
+   {
+	   obj.execSQL("CREATE TABLE academic(Name varchar(20),rollno int, percentage float);");
+	   
+	  
+   }
+    public void save (View v)
+    {
+    	obj.execSQL("INSERT INTO academic VALUES('"+e1.getText().toString()+"',"+e2.getText().toString()+","+e3.getText().toString()+");");
+    	Toast.makeText(this, "Data inserted successfully", 1).show();
+    }
+    
+    
+    public void next(View v){
+    	Intent in =new Intent(this, DataListMainActivity.class);
+    	startActivity(in);
+    	
+    }
+
+DATALISTACTIVITY.JAVA
+
+public class DataListActivity extends Activity {
+   ListView lw;
+   SQLiteDatabase obj;
+   ArrayList list;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_data_list_main);
+		lw=(ListView) findViewById(R.id.listView1);
+		list=new ArrayList();
+		obj=openOrCreateDatabase("stud", 1, null);
+		String query="SELECT * FROM academic;";
+		Cursor c=obj.rawQuery(query, null);
+		
+		while(c.moveToNext())
+		{
+			String name=c.getString(c.getColumnIndex("Name"));
+			int roll=c.getInt(c.getColumnIndex("rollno"));
+			float per=c.getFloat(c.getColumnIndex("percentage"));
+			list.add(name+"\n"+roll+"\n"+per+"\n");
+		}
+
+	ArrayAdapter obj2=new ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
+	lw.setAdapter(obj2);
+	}
+
+
+MAINACTIVITY.XML
+
+ <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="18dp"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText2"
+            android:layout_below="@+id/editText2"
+            android:layout_marginTop="18dp"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:onClick="save"
+            android:text="save" />
+
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_alignParentTop="true"
+            android:text="Create database" 
+            android:onClick="CreateD"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/button1"
+            android:onClick="CreateT"
+            android:text="Create table" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button1"
+            android:layout_below="@+id/button1"
+            android:layout_marginTop="45dp"
+            android:text="next"
+            android:onClick="next" />
+
+    </RelativeLayout>
+
+DATALISTACTIVITY.XML
+
+<ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
